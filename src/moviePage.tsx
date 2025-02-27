@@ -1,13 +1,31 @@
+import React, { useState } from 'react';
+import { Search, User, LogOut } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-import { Search, User } from 'lucide-react';
-
-function App() {
+function MoviePage() {
   // Mock data for Howl's Moving Castle cards
   const movieCards = Array(12).fill({
-    title: "Howl's Mog Castle",
+    title: "Howl's Moving Castle",
     year: "2024",
     duration: "2h 24m"
   });
+
+  // State to control dropdown visibility
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // Toggle dropdown function
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Use navigate hook
+  const navigate = useNavigate();
+
+  // Handle logout function
+  const handleLogout = () => {
+    // Add your logout logic here
+    navigate('/'); // Navigate to the login page
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -43,15 +61,39 @@ function App() {
           <button className="bg-white text-black px-4 py-1 rounded-full text-sm font-medium">Movies</button>
           <button className="text-white">My Library</button>
           
-          {/* User Profile */}
-          <div className="flex items-center ml-4">
-            <div className="bg-gray-700 rounded-full p-1">
-              <User className="h-5 w-5" />
-            </div>
-            <span className="ml-2">hawirr</span>
-            <svg className="h-4 w-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M6 9l6 6 6-6" />
-            </svg>
+          {/* User Profile with Dropdown */}
+          <div className="relative">
+            <button 
+              onClick={toggleDropdown}
+              className="flex items-center ml-4 focus:outline-none"
+            >
+              <div className="bg-gray-700 rounded-full p-1">
+                <User className="h-5 w-5" />
+              </div>
+              <span className="ml-2">hawirr</span>
+              <svg 
+                className={`h-4 w-4 ml-1 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            
+            {/* Dropdown Menu */}
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-10 border border-gray-700">
+                <button 
+                  className="flex items-center w-full px-4 py-2 text-sm text-white hover:bg-gray-700 transition-colors"
+                  onClick={handleLogout}
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -71,4 +113,4 @@ function App() {
   );
 }
 
-export default App;
+export default MoviePage;
