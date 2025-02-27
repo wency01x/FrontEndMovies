@@ -11,7 +11,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "*": ["node_modules/*"]  // Add this line to include node_modules
+    },
+    "target": "es5",                // Add this line
+    "module": "commonjs",           // Add this line
+    "jsx": "react",                  // Add this line
+    "strict": true,                  // Add this line
+    "esModuleInterop": true,         // Add this line
+    "skipLibCheck": true,            // Add this line
+    "forceConsistentCasingInFileNames": true // Add this line
   }
 }
