@@ -4,6 +4,7 @@ import LoginPage from './LoginPage.tsx';
 import SignupPage from './SignupPage.tsx';
 import ForgotPassword from './forgot-password';
 import CreateAccount from './SignupPage';
+import MoviePage from './moviePage';
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/SignupPage" element={<CreateAccount />} />
+        <Route path="/movies" element={<MoviePage />} /> 
       </Routes>
     </Router>
   );
