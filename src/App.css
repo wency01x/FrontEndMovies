@@ -1,0 +1,46 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  padding-right: 16rem; /* Adjust this value as needed */
+}
+
+#login-button:hover {
+  background-color: whitesmoke;
+  font-size: 1.1em;
+}
+
+
+#fb-log-in-button:hover {
+  background-color: whitesmoke;
+  font-size: 1.1em;
+}
+
+#google-log-in-button:hover {
+  background-color: whitesmoke;
+  font-size: 1.1em;
+}
+
+#sign-up-button:hover {
+  background-color: whitesmoke;
+  font-size: 1.1em;
+}
+
+#sign-up-button-fb:hover {
+  background-color: whitesmoke;
+  font-size: 1.1em;
+}
+
+#sign-up-button-google:hover {
+  background-color: whitesmoke;
+  font-size: 1.1em;
+}
+
+
+
+#send-log-in-link-button:hover {
+  background-color: whitesmoke;
+  font-size: 1.1em;
+  
+}
