@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
               <span>Log in with Google</span>
             </button>
             <div className="text-center text-white">
-              Don't have an account? <Link className="text-blue-500 underline" to="/SignupPage">Sign up here</Link>
+              Don't have an account? <Link className="text-blue-500 underline" to="/create-account">Sign up here</Link>
             </div>
           </form>
         </div>
