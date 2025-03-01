@@ -36,16 +36,6 @@ const LoginPage: React.FC = () => {
             </div>
             <button className="w-full p-3 bg-white text-black rounded-3xl font-semibold" type="submit" id='login-button'>Log in 
             </button>
-            <div className="text-center">
-              <Link to="/forgot-password" className="text-blue-500 underline">Forgot password?</Link>
-            </div>
-            <div className="text-center text-white">OR</div>
-            <button className="w-full p-3 bg-white text-black rounded-3xl font-semibold flex items-center justify-center space-x-2" id='fb-log-in-button' type="button"> 
-              <span>Log in with Facebook</span>
-            </button>
-            <button className="w-full p-3 bg-white text-black rounded-3xl font-semibold flex items-center justify-center space-x-2" id='google-log-in-button' type="button">
-              <span>Log in with Google</span>
-            </button>
             <div className="text-center text-white">
               Don't have an account? <Link className="text-blue-500 underline" to="/create-account">Sign up here</Link>
             </div>
