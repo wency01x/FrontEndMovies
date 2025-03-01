@@ -1,5 +1,5 @@
-// filepath: /c:/Users/chela/OneDrive/Desktop/CASINO-react-project/CASINO-lab-ex/src/SignupPage.tsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import 'tailwindcss/tailwind.css';
 import './App.css';
 
@@ -67,7 +67,7 @@ const SignupPage: React.FC = () => {
           </form>
           <div className="mt-4 text-center">
             <span className="text-white">
-              Already have an account? <a href="/login" className="text-blue-400">Log in here</a>
+              Already have an account? <Link to="/login" className="text-blue-400">Log in here</Link> {/* Use Link component */}
             </span>
           </div>
         </div>
