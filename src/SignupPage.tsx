@@ -13,14 +13,6 @@ const SignupPage: React.FC = () => {
     console.log('Sign Up:', { username, email, password, confirmPassword });
   };
 
-  const handleFacebookSignUp = () => {
-    console.log('Sign Up with Facebook');
-  };
-
-  const handleGoogleSignUp = () => {
-    console.log('Sign Up with Google');
-  };
-
   return (
     <div className="bg-cover bg-center h-screen" style={{ backgroundImage: "url('/images/kokurikozaka003.jpg')" }}>
       <div className="flex items-center justify-center h-full">
@@ -72,25 +64,6 @@ const SignupPage: React.FC = () => {
               </button>
             </div>
           </form>
-          <div className="flex items-center my-4">
-            <hr className="flex-grow border-t border-white" />
-            <span className="mx-2 text-white">OR</span>
-            <hr className="flex-grow border-t border-white" />
-          </div>
-          <div className="space-y-4">
-            <button
-              className="w-full p-2 bg-white text-black rounded-3xl" id='sign-up-button-fb'
-              onClick={handleFacebookSignUp}
-            >
-              Sign up with Facebook
-            </button>
-            <button
-              className="w-full p-2 bg-white text-black rounded-3xl" id='sign-up-button-google'
-              onClick={handleGoogleSignUp}
-            >
-              Sign up with Google
-            </button>
-          </div>
           <div className="mt-4 text-center">
             <span className="text-white">
               Already have an account? <a href="/" className="text-blue-400">Log in here</a>
