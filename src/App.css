@@ -1,46 +1,117 @@
-.login-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+.fade-out {
+  animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    filter: blur(30px); /* Apply blur effect */
+  }
+}
+
+.fade-in {
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    filter: blur(30px); /* Start with blur effect */
+  }
+  to {
+    opacity: 1;
+    filter: blur(0); /* Remove blur effect */
+  }
+}
+
+.full-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  padding-right: 16rem; /* Adjust this value as needed */
+  overflow: hidden;
 }
 
-#login-button:hover {
-  background-color: whitesmoke;
-  font-size: 1.1em;
+.slide-in-right {
+  animation: slideInRight 2s forwards; /* Match the duration of the blur effect */
 }
 
-
-#fb-log-in-button:hover {
-  background-color: whitesmoke;
-  font-size: 1.1em;
+@keyframes slideInRight {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-#google-log-in-button:hover {
-  background-color: whitesmoke;
-  font-size: 1.1em;
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-#sign-up-button:hover {
-  background-color: whitesmoke;
-  font-size: 1.1em;
+.fade-out {
+  animation: fadeOut 2s forwards;
 }
 
-#sign-up-button-fb:hover {
-  background-color: whitesmoke;
-  font-size: 1.1em;
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
-#sign-up-button-google:hover {
-  background-color: whitesmoke;
-  font-size: 1.1em;
+.fade-in {
+  animation: fadeIn 2s forwards;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
+.full-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-#send-log-in-link-button:hover {
-  background-color: whitesmoke;
-  font-size: 1.1em;
-  
+.slide-in-right {
+  animation: slideInRight 2s forwards; /* Match the duration of the blur effect */
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-40%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }

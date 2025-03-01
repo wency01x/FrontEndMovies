@@ -1,3 +1,4 @@
+// filepath: /c:/Users/chela/OneDrive/Desktop/CASINO-react-project/CASINO-lab-ex/src/SignupPage.tsx
 import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import './App.css';
@@ -14,9 +15,9 @@ const SignupPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-cover bg-center h-screen" style={{ backgroundImage: "url('/images/kokurikozaka003.jpg')" }}>
+    <div className="bg-cover bg-center h-screen" style={{ backgroundImage: "url('/images/bg-w-logo.png')" }}>
       <div className="flex items-center justify-center h-full">
-        <div className="bg-black bg-opacity-50 p-8 rounded-3xl w-full max-w-md">
+        <div className="glass p-8 rounded-3xl w-full max-w-md fade-in">
           <form className="space-y-4" onSubmit={handleSignUp}>
             <div>
               <input
@@ -66,7 +67,7 @@ const SignupPage: React.FC = () => {
           </form>
           <div className="mt-4 text-center">
             <span className="text-white">
-              Already have an account? <a href="/" className="text-blue-400">Log in here</a>
+              Already have an account? <a href="/login" className="text-blue-400">Log in here</a>
             </span>
           </div>
         </div>
