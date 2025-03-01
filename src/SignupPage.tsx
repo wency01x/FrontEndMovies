@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
 import './App.css';
 
@@ -67,7 +67,7 @@ const SignupPage: React.FC = () => {
           </form>
           <div className="mt-4 text-center">
             <span className="text-white">
-              Already have an account? <Link to="/login" className="text-blue-400">Log in here</Link> {/* Use Link component */}
+              Already have an account? <Link to="/login" className="text-blue-400">Log in here</Link>
             </span>
           </div>
         </div>
