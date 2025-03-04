@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, User, LogOut } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import axiosInstance from "./api/axiosInstance";
+import axios from 'axios';
+
 
 function MoviePage() {
-  // Mock data for Howl's Moving Castle cards
-  const movieCards = Array(12).fill({
-    title: "Howl's Moving Castle",
-    year: "2024",
-    duration: "2h 24m"
-  });
-
   // State to control dropdown visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // State to store movie data
+  const [movieCards, setMovieCards] = useState<{ title: string; year: string; duration: string; path?: string }[]>([]);
 
   // Toggle dropdown function
   const toggleDropdown = () => {
@@ -26,6 +25,23 @@ function MoviePage() {
     // Add your logout logic here
     navigate('/'); // Navigate to the login page
   };
+
+  // Fetch movie data
+  useEffect(() => {
+    axiosInstance
+      .get("/movies")
+      .then((response) => {
+        setMovieCards(response.data as { title: string; year: string; duration: string; path?: string }[]);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+        if (error.response) {
+          console.error("Error response data:", error.response.data);
+          console.error("Error response status:", error.response.status);
+          console.error("Error response headers:", error.response.headers);
+        }
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -101,12 +117,12 @@ function MoviePage() {
       {/* Movie Grid */}
       <div className="grid grid-cols-6 gap-4 p-4">
         {movieCards.map((movie, index) => (
-          <div key={index} className="flex flex-col">
+          <Link to={movie.path || `/movies/${encodeURIComponent(movie.title)}`} key={index} className="flex flex-col">
             <div className="bg-gray-300 aspect-[3/4] rounded-md mb-2"></div>
             <h3 className="text-sm font-medium">{movie.title}</h3>
             <p className="text-xs text-gray-400">{movie.year}</p>
             <p className="text-xs text-gray-400">{movie.duration}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
