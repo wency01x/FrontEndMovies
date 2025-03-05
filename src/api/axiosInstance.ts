@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
                 console.warn("Unauthorized! Redirecting to login...");
                 localStorage.removeItem("accessToken");
                 localStorage.clear()
-                window.location.href = "/sign-in";
+                window.location.href = "/SignUpPage";
             }
         }
         return Promise.reject(error);

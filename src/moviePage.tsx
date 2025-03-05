@@ -2,46 +2,40 @@ import { useState, useEffect } from 'react';
 import { Search, User, LogOut } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from "./api/axiosInstance";
-import axios from 'axios';
 
+interface Movie {
+  title: string;
+  genre?: string;
+  year: string;
+  duration: string;
+  path?: string;
+  videoUrl?: string;
+  posterUrl?: string;
+}
 
 function MoviePage() {
-  // State to control dropdown visibility
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  // State to store movie data
-  const [movieCards, setMovieCards] = useState<{ title: string; year: string; duration: string; path?: string }[]>([]);
-
-  // Toggle dropdown function
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Use navigate hook
+  const [movieCards, setMovieCards] = useState<Movie[]>([]);
   const navigate = useNavigate();
 
-  // Handle logout function
-  const handleLogout = () => {
-    // Add your logout logic here
-    navigate('/'); // Navigate to the login page
-  };
-
-  // Fetch movie data
   useEffect(() => {
     axiosInstance
       .get("/movies")
       .then((response) => {
-        setMovieCards(response.data as { title: string; year: string; duration: string; path?: string }[]);
+        setMovieCards(response.data as Movie[]);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
-        if (error.response) {
-          console.error("Error response data:", error.response.data);
-          console.error("Error response status:", error.response.status);
-          console.error("Error response headers:", error.response.headers);
-        }
       });
   }, []);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    navigate('/'); // Navigate to the login page
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -116,14 +110,25 @@ function MoviePage() {
 
       {/* Movie Grid */}
       <div className="grid grid-cols-6 gap-4 p-4">
-        {movieCards.map((movie, index) => (
-          <Link to={movie.path || `/movies/${encodeURIComponent(movie.title)}`} key={index} className="flex flex-col">
-            <div className="bg-gray-300 aspect-[3/4] rounded-md mb-2"></div>
-            <h3 className="text-sm font-medium">{movie.title}</h3>
-            <p className="text-xs text-gray-400">{movie.year}</p>
-            <p className="text-xs text-gray-400">{movie.duration}</p>
-          </Link>
-        ))}
+        {movieCards.length > 0 ? (
+          movieCards.map((movie, index) => (
+            <Link to={movie.path || `/movies/${encodeURIComponent(movie.title)}`} key={index} className="flex flex-col">
+              <div className="bg-gray-300 aspect-[3/4] rounded-md mb-2">
+                {movie.posterUrl ? (
+                  <img src={movie.posterUrl} alt={movie.title} className="object-cover h-full w-full rounded-md" />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-gray-500">No Image</div>
+                )}
+              </div>
+              <h3 className="text-sm font-medium">{movie.title}</h3>
+              <p className="text-xs text-gray-400">{movie.genre || "Unknown Genre"}</p>
+              <p className="text-xs text-gray-400">{movie.year}</p>
+              <p className="text-xs text-gray-400">{movie.duration}</p>
+            </Link>
+          ))
+        ) : (
+          <p className="text-center text-gray-500 col-span-6">No movies available.</p>
+        )}
       </div>
     </div>
   );
