@@ -28,7 +28,7 @@ import MoviePoppy from "./components/movies/moviePoppy";
 const App: React.FC = () => {
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/movie/", { withCredentials: true }) // Make sure this is the correct endpoint
+      .get("http://localhost:5175/api/movie/", { withCredentials: true }) // Make sure this is the correct endpoint
       .then((res) => console.log(res.data)) // Log response data
       .catch((err) => console.error("Error fetching data:", err));
   }, []);

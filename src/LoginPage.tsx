@@ -20,7 +20,7 @@ const LoginPage: React.FC = () => {
     setIsAnimating(true);
 
     try {
-      const response = await axios.post<LoginResponse>('https://your-api-url.com/login', {
+      const response = await axios.post<LoginResponse>('', {
         email,
         password,
       });

@@ -4,48 +4,63 @@ import axios from 'axios';
 import 'tailwindcss/tailwind.css';
 import './App.css';
 
+const API_URL = "http://127.0.0.1:8000/api"; // Your API base URL
+
 const SignupPage: React.FC = () => {
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [message, setMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     phoneNumber: '',
     fullName: '',
     password: '',
   });
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [message, setMessage] = useState<string | null>(null);
 
+  // Handle form changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    
+    if (name === "confirmPassword") {
+      setConfirmPassword(value);
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (formData.password !== confirmPassword) {
-      setMessage("Passwords do not match!");
-      return;
-    }
-
+  // API function to register a user
+  const signup = async () => {
     try {
-      const response = await axios.post<{ success: boolean; message?: string }>(
-        'http://localhost:8000/api/register/',
-        formData,
-        { headers: { 'Content-Type': 'application/json' } }
-      );
+      const response = await axios.post(`${API_URL}/register/`, {
+        ...formData,
+        password2: confirmPassword, // Ensure password2 is sent correctly
+      }, {
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-      if (response.data.success) {
-        setMessage("Registration successful! You can now log in.");
-      } else {
-        setMessage(response.data.message || "Registration failed.");
-      }
-    } catch (error) {
-      setMessage("An error occurred. Please try again.");
-      console.error(error);
+      return response.data; // Success message or response data
+    } catch (error: any) {
+      return error.response?.data || { error: "Signup failed. Please try again." };
     }
   };
+
+  // Handle form submission
+const handleSignUp = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const result = await signup();
+
+  if (result?.message) {
+    setMessage(result.message);
+  } else if (result?.error) {
+    setMessage(result.error);
+  } else {
+    setMessage("An unexpected error occurred.");
+  }
+};
 
   return (
     <div className="bg-cover bg-center h-screen" style={{ backgroundImage: "url('/images/bg-w-logo.png')" }}>
@@ -53,6 +68,17 @@ const SignupPage: React.FC = () => {
         <div className="glass p-8 rounded-3xl w-full max-w-md fade-in">
           {message && <p className="text-center text-red-400">{message}</p>}
           <form className="space-y-4" onSubmit={handleSignUp}>
+            {/* Username */}
+            <div>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={formData.username}
+                onChange={handleChange}
+                className="w-full p-3 rounded-3xl border-2 border-white bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
             {/* Email */}
             <div>
               <input
@@ -101,9 +127,10 @@ const SignupPage: React.FC = () => {
             <div>
               <input
                 type="password"
+                name="confirmPassword"
                 placeholder="Confirm Password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={handleChange}
                 className="w-full p-3 rounded-3xl border-2 border-white bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
