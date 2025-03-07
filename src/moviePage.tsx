@@ -35,7 +35,7 @@ function MoviePage() {
   };
 
   const handleLogout = () => {
-    navigate('/'); // Navigate to the login page
+    navigate('/login'); // Navigate to the login page
   };
 
   return (

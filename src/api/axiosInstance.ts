@@ -19,23 +19,17 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     (error) => {
-        return Promise.reject(error);
-    }
-);
-
-axiosInstance.interceptors.response.use(
-    (response) => response,
-    (error) => {
         if (error.response) {
             if (error.response.status === 401) {
                 console.warn("Unauthorized! Redirecting to login...");
                 localStorage.removeItem("accessToken");
                 localStorage.clear()
-                window.location.href = "/SignUpPage";
+                window.location.href = "/movies";
             }
         }
         return Promise.reject(error);
     }
 );
+
 
 export default axiosInstance;

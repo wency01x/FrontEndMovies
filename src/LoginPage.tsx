@@ -6,7 +6,8 @@ import axios from 'axios';
 interface LoginResponse {
   success: boolean;
   token?: string; // If the API returns a token on success
-  message?: string; // Optional message from API
+  message?: string;
+  role?: string; // Optional message from API
 }
 
 const LoginPage: React.FC = () => {
@@ -18,32 +19,35 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsAnimating(true);
-
+  
     try {
       const response = await axios.post<LoginResponse>(
         'http://127.0.0.1:8000/api/login/',
         { email, password },
         {
           headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
           }
         }
       );
-
-      if (response.data.success) {
-        console.log('Login successful!', response.data.token);
-        navigate('/movies'); // Navigate to the MoviePage component
+  
+      if (response.data.token) {
+        alert('Login successful');
+        localStorage.setItem("accessToken", response.data.token);
+        navigate("/movies/"); // ✅ Redirect to MoviePage
       } else {
-        alert(response.data.message || 'Invalid login credentials');
+        alert(response.data.message || "Invalid login credentials");
         setIsAnimating(false);
       }
+      
     } catch (error) {
       console.error('Login failed', error);
       alert('An error occurred during login.');
       setIsAnimating(false);
     }
   };
+  
 
   return (
     <div className={`h-screen bg-cover bg-center ${isAnimating ? 'fade-out' : 'fade-in'}`} style={{ backgroundImage: "url('/images/authentication-bg.png')" }}>
