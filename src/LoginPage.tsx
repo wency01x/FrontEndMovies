@@ -20,10 +20,16 @@ const LoginPage: React.FC = () => {
     setIsAnimating(true);
 
     try {
-      const response = await axios.post<LoginResponse>('', {
-        email,
-        password,
-      });
+      const response = await axios.post<LoginResponse>(
+        'http://127.0.0.1:8000/api/login/',
+        { email, password },
+        {
+          headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          }
+        }
+      );
 
       if (response.data.success) {
         console.log('Login successful!', response.data.token);

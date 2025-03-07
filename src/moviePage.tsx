@@ -3,6 +3,7 @@ import { Search, User, LogOut } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from "./api/axiosInstance";
 
+
 interface Movie {
   title: string;
   genre?: string;

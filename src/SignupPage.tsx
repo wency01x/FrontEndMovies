@@ -4,8 +4,6 @@ import axios from 'axios';
 import 'tailwindcss/tailwind.css';
 import './App.css';
 
-const API_URL = "http://127.0.0.1:8000/api"; // Your API base URL
-
 const SignupPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
@@ -34,7 +32,7 @@ const SignupPage: React.FC = () => {
   // API function to register a user
   const signup = async () => {
     try {
-      const response = await axios.post(`${API_URL}/register/`, {
+      const response = await axios.post(`http://127.0.0.1:8000/api/register/`, {
         ...formData,
         password2: confirmPassword, // Ensure password2 is sent correctly
       }, {
@@ -53,8 +51,16 @@ const handleSignUp = async (e: React.FormEvent) => {
 
   const result = await signup();
 
-  if (result?.message) {
-    setMessage(result.message);
+  if (result?.id) {
+    setMessage("User registered successfully!");
+    setFormData({
+      username: '',
+      email: '',
+      phoneNumber: '',
+      fullName: '',
+      password: '',
+    })
+
   } else if (result?.error) {
     setMessage(result.error);
   } else {
