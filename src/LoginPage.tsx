@@ -30,7 +30,7 @@ const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: AuthUser) => void }) =
   
     try {
       const response = await axios.post<LoginResponse>(
-        `${import.meta.env.VITE_API_URL}/login/`,
+        `${import.meta.env.VITE_API_URL}/api/login/`,
         { email, password },
         {
           headers: {
