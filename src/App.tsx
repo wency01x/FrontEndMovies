@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
 import MoviePage from "./moviePage";
 import GetStarted from "./get-started";
 import MovieDetails from "./components/movies/movieDetails";
 import MoviePlayer from "./components/movies/moviePlayer";
+import ProtectedRoute from "./ProtectedRoute";
 
 /* gi try nakog hardcode ang movies, idk how to make it dynamic thats why naa ni
 import MovieNausica from "./components/movies/movieNausica";
@@ -30,22 +30,39 @@ import MovieArrietty from "./components/movies/movieArrietty";
 import MoviePoppy from "./components/movies/moviePoppy"; */
  
 const App: React.FC = () => {
+  const [authUser, setAuthUser] = React.useState(null);
+
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/movies/", { withCredentials: true }) // Make sure this is the correct endpoint
-      .then((res) => console.log(res.data)) // Log response data
-      .catch((err) => console.error("Error fetching data:", err));
-  }, []);
+    const accessToken = localStorage.getItem("accessToken");
+    const storedUser = localStorage.getItem("authUser");
+    if (storedUser && accessToken) {
+      setAuthUser(JSON.parse(storedUser)); // Parse if it's stored as JSON
+    }  
+  }, [])
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<GetStarted />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/create-account" element={<SignupPage />} />
-        <Route path="/movies" element={<MoviePage />} />
-        <Route path="/movies/:id" element={<MovieDetails />} /> {/* still dli mo direct sa movie components */}
-        <Route path="/movies/:id/watch" element={<MoviePlayer />} />
+      {/* Public Routes (redirect if logged in) */}
+      <Route
+        path="/"
+        element={authUser ? <Navigate to="/movies" replace /> : <GetStarted />}
+      />
+      <Route
+        path="/login"
+        element={authUser ? <Navigate to="/movies" replace /> : <LoginPage setAuthUser={setAuthUser} />}
+      />
+      <Route
+        path="/create-account"
+        element={authUser ? <Navigate to="/movies" replace /> : <SignupPage />}
+      />
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute authUser={authUser} />}>
+          <Route path="/movies" element={<MoviePage setAuthUser={setAuthUser} authUser={authUser} />} />
+          <Route path="/movies/:id" element={<MovieDetails />} />
+          <Route path="/movies/:id/watch" element={<MoviePlayer />} />
+        </Route>
       </Routes>
     </Router>
   );

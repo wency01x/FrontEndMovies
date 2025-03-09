@@ -1,7 +1,7 @@
 import axiosInstance from "@/api/axiosInstance";
 import React, { useState, useEffect } from "react";
-import ReactPlayer from 'react-player';
 import { useNavigate, useParams } from "react-router-dom";
+import ReactPlayer from 'react-player';
 
 const MoviePlayer = () => {
     const { id } = useParams();

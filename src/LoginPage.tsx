@@ -8,9 +8,17 @@ interface LoginResponse {
   token?: string; // If the API returns a token on success
   message?: string;
   role?: string; // Optional message from API
+  user: AuthUser
 }
 
-const LoginPage: React.FC = () => {
+export interface AuthUser {
+  id: number;
+  email: string;
+  username: string;
+  fullName: string;
+}
+
+const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: AuthUser) => void }) => {
   const navigate = useNavigate();
   const [isAnimating, setIsAnimating] = useState(false);
   const [email, setEmail] = useState('');
@@ -22,7 +30,7 @@ const LoginPage: React.FC = () => {
   
     try {
       const response = await axios.post<LoginResponse>(
-        'http://127.0.0.1:8000/api/login/',
+        `${import.meta.env.VITE_API_URL}/api/login/`,
         { email, password },
         {
           headers: {
@@ -32,11 +40,11 @@ const LoginPage: React.FC = () => {
         }
       );
   
-      if (response.data.token) {
-        alert('Login successful');
+      if (response.data.user) {
         localStorage.setItem("accessToken", response.data.token);
-
-        navigate("/movies/"); // ✅ Redirect to MoviePage
+        localStorage.setItem("authUser", JSON.stringify(response.data.user));
+        setAuthUser(response.data.user);
+        navigate('/movies');
       } else {
         alert(response.data.message || "Invalid login credentials");
         setIsAnimating(false);

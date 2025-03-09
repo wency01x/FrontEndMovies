@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://127.0.0.1:8000/api",
+    baseURL: `${import.meta.env.VITE_API_URL}/api`,
     timeout: 10000,
     headers: {
         "Content-Type": "application/json",
@@ -21,6 +21,7 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     (error) => {
+        console.log(error.response);
         if (error.response) {
             if (error.response.status === 401) {
                 console.warn("Unauthorized! Redirecting to login...");

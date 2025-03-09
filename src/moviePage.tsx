@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Search, User, LogOut } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from "./api/axiosInstance";
+import { AuthUser } from './LoginPage';
 
 
 
@@ -17,29 +18,50 @@ interface Movie {
   poster_image: string;
 }
 
-function MoviePage() {
+const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: AuthUser) => void, authUser: AuthUser }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [movieCards, setMovieCards] = useState<Movie[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const fetchMovies = (query = "") => {
+    const endpoint = query ? `/movie/search/?q=${query}` : "/movies/";
     axiosInstance
-      .get("/movies/")
+      .get(endpoint)
       .then((response) => {
         setMovieCards(response.data as Movie[]);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
       });
-  }, []);
+  };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+
+    debounceTimeout.current = setTimeout(() => {
+      fetchMovies(query);
+    }, 500);
+  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken"); // Remove the access token
-    navigate('/'); // Navigate to the login page
+    localStorage.clear(); // Remove the access token
+    setAuthUser(null);
+    navigate('/', {replace: true}); // Navigate to the login page
   };
 
   return (
@@ -64,14 +86,14 @@ function MoviePage() {
             type="text" 
             placeholder="Search" 
             className="bg-black border border-gray-600 rounded-full py-1 px-4 pr-10 text-sm"
+            value={searchQuery}
+            onChange={handleSearch}
           />
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
         </div>
 
         {/* Navigation Links */}
-        <div className="flex items-center space-x-6">
-  
-          
+        <div className="flex items-center spsace-x-6">
           {/* User Profile with Dropdown */}
           <div className="relative">
             <button 
@@ -81,7 +103,7 @@ function MoviePage() {
               <div className="bg-gray-700 rounded-full p-1">
                 <User className="h-5 w-5" />
               </div>
-              <span className="ml-2">hawirr</span>
+              <span className="ml-2">{authUser?.fullName}</span>
               <svg 
                 className={`h-4 w-4 ml-1 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} 
                 viewBox="0 0 24 24" 
@@ -115,12 +137,11 @@ function MoviePage() {
           movieCards.map((movie, index) => (
             <Link to={`/movies/${movie.id}`} key={index} className="flex flex-col">
               <div className="bg-gray-300 aspect-[3/4] rounded-md mb-2">
-              {movie.poster_image ? (
-              <img src={movie.poster_image} alt={movie.title} className="object-cover h-full w-full rounded-md" />
-              ) : (
-              <div className="flex items-center justify-center h-full text-gray-500">No Image</div>
-              )}
-
+                {movie.poster_image ? (
+                  <img src={movie.poster_image} alt={movie.title} className="object-cover h-full w-full rounded-md" />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-gray-500">No Image</div>
+                )}
               </div>
               <h3 className="text-sm font-medium">{movie.title}</h3>
               <p className="text-xs text-gray-400">{movie.genre || "Unknown Genre"}</p>
@@ -135,5 +156,6 @@ function MoviePage() {
     </div>
   );
 }
+
 
 export default MoviePage;

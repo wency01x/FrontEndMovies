@@ -32,7 +32,7 @@ const SignupPage: React.FC = () => {
   // API function to register a user
   const signup = async () => {
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/register/`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/register/`, {
         ...formData,
         password2: confirmPassword, // Ensure password2 is sent correctly
       }, {
@@ -60,7 +60,6 @@ const handleSignUp = async (e: React.FormEvent) => {
       fullName: '',
       password: '',
     })
-
   } else if (result?.error) {
     setMessage(result.error);
   } else {
