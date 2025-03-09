@@ -129,17 +129,7 @@ const handleSignUp = async (e: React.FormEvent) => {
                 className="w-full p-3 rounded-3xl border-2 border-white bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            {/* Confirm Password */}
-            <div>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={handleChange}
-                className="w-full p-3 rounded-3xl border-2 border-white bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+
             {/* Submit Button */}
             <div>
               <button type="submit" className="w-full p-2 bg-white text-black rounded-3xl">

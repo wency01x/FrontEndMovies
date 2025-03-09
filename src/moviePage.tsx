@@ -4,14 +4,17 @@ import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from "./api/axiosInstance";
 
 
+
+
 interface Movie {
+  id: number;
   title: string;
   genre?: string;
   year: string;
   duration: string;
   path?: string;
   videoUrl?: string;
-  posterUrl?: string;
+  poster_image: string;
 }
 
 function MoviePage() {
@@ -21,7 +24,7 @@ function MoviePage() {
 
   useEffect(() => {
     axiosInstance
-      .get("/movies")
+      .get("/movies/")
       .then((response) => {
         setMovieCards(response.data as Movie[]);
       })
@@ -35,7 +38,8 @@ function MoviePage() {
   };
 
   const handleLogout = () => {
-    navigate('/login'); // Navigate to the login page
+    localStorage.removeItem("accessToken"); // Remove the access token
+    navigate('/'); // Navigate to the login page
   };
 
   return (
@@ -45,14 +49,12 @@ function MoviePage() {
         <div className="flex items-center">
           <div className="mr-4">
             <img 
-              src="https://images.unsplash.com/photo-1608889825103-eb5ed706fc64?auto=format&fit=crop&q=80&w=80&h=80" 
+              src="/images/white.png" 
               alt="Studio Ghibli Logo" 
-              className="h-10 w-10 object-contain"
+              className="h-10 w-15 object-contain"
             />
           </div>
           <div className="text-xs flex flex-col">
-            <span className="text-gray-300">スタジオジブリ作品</span>
-            <span className="font-bold">STUDIO Ghibli</span>
           </div>
         </div>
 
@@ -68,9 +70,7 @@ function MoviePage() {
 
         {/* Navigation Links */}
         <div className="flex items-center space-x-6">
-          <button className="text-white">Home</button>
-          <button className="bg-white text-black px-4 py-1 rounded-full text-sm font-medium">Movies</button>
-          <button className="text-white">My Library</button>
+  
           
           {/* User Profile with Dropdown */}
           <div className="relative">
@@ -113,13 +113,14 @@ function MoviePage() {
       <div className="grid grid-cols-6 gap-4 p-4">
         {movieCards.length > 0 ? (
           movieCards.map((movie, index) => (
-            <Link to={movie.path || `/movies/${encodeURIComponent(movie.title)}`} key={index} className="flex flex-col">
+            <Link to={`/movies/${movie.id}`} key={index} className="flex flex-col">
               <div className="bg-gray-300 aspect-[3/4] rounded-md mb-2">
-                {movie.posterUrl ? (
-                  <img src={movie.posterUrl} alt={movie.title} className="object-cover h-full w-full rounded-md" />
-                ) : (
-                  <div className="flex items-center justify-center h-full text-gray-500">No Image</div>
-                )}
+              {movie.poster_image ? (
+              <img src={movie.poster_image} alt={movie.title} className="object-cover h-full w-full rounded-md" />
+              ) : (
+              <div className="flex items-center justify-center h-full text-gray-500">No Image</div>
+              )}
+
               </div>
               <h3 className="text-sm font-medium">{movie.title}</h3>
               <p className="text-xs text-gray-400">{movie.genre || "Unknown Genre"}</p>

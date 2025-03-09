@@ -5,6 +5,10 @@ import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
 import MoviePage from "./moviePage";
 import GetStarted from "./get-started";
+import MovieDetails from "./components/movies/movieDetails";
+import MoviePlayer from "./components/movies/moviePlayer";
+
+/* gi try nakog hardcode ang movies, idk how to make it dynamic thats why naa ni
 import MovieNausica from "./components/movies/movieNausica";
 import MovieCastle from "./components/movies/movieCastle";
 import MovieGrave from "./components/movies/movieGrave";
@@ -19,12 +23,12 @@ import MoviePrincess from "./components/movies/moviePrincess";
 import MovieYamada from "./components/movies/movieYamada";
 import MovieSpirited from "./components/movies/moviesSpirited";
 import MovieTheCat from "./components/movies/movieTheCat";
-import MovieHowl from "./components/movies/movieHowl";
+import MovieDetails from "./components/movies/movieDetails";
 import MovieTales from "./components/movies/movieTales";
 import MoviePonyo from "./components/movies/moviePonyo";
 import MovieArrietty from "./components/movies/movieArrietty";
-import MoviePoppy from "./components/movies/moviePoppy";
-
+import MoviePoppy from "./components/movies/moviePoppy"; */
+ 
 const App: React.FC = () => {
   useEffect(() => {
     axios
@@ -40,25 +44,8 @@ const App: React.FC = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/create-account" element={<SignupPage />} />
         <Route path="/movies" element={<MoviePage />} />
-        <Route path="/movies/movieNausica" element={<MovieNausica />} />
-        <Route path="/movies/movieCastle" element={<MovieCastle />} />
-        <Route path="/movies/movieGrave" element={<MovieGrave />} />
-        <Route path="/movies/movieTotoro" element={<MovieTotoro />} />
-        <Route path="/movies/movieKiki" element={<MovieKiki />} />
-        <Route path="/movies/movieOnly" element={<MovieOnly />} />
-        <Route path="/movies/moviePorco" element={<MoviePorco />} />
-        <Route path="/movies/movieOcean" element={<MovieOcean />} />
-        <Route path="/movies/moviePom" element={<MoviePom />} />
-        <Route path="/movies/movieWhisper" element={<MovieWhisper />} />
-        <Route path="/movies/moviePrincess" element={<MoviePrincess />} />
-        <Route path="/movies/movieYamada" element={<MovieYamada />} />
-        <Route path="/movies/movieSpirited" element={<MovieSpirited />} />
-        <Route path="/movies/movieTheCat" element={<MovieTheCat />} />
-        <Route path="/movies/movieHowl" element={<MovieHowl />} />
-        <Route path="/movies/movieTales" element={<MovieTales />} />
-        <Route path="/movies/moviePonyo" element={<MoviePonyo />} />
-        <Route path="/movies/movieArrietty" element={<MovieArrietty />} />
-        <Route path="/movies/moviePoppy" element={<MoviePoppy />} />
+        <Route path="/movies/:id" element={<MovieDetails />} /> {/* still dli mo direct sa movie components */}
+        <Route path="/movies/:id/watch" element={<MoviePlayer />} />
       </Routes>
     </Router>
   );

@@ -35,6 +35,7 @@ const LoginPage: React.FC = () => {
       if (response.data.token) {
         alert('Login successful');
         localStorage.setItem("accessToken", response.data.token);
+
         navigate("/movies/"); // ✅ Redirect to MoviePage
       } else {
         alert(response.data.message || "Invalid login credentials");
