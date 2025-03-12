@@ -1,33 +1,14 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import LoginPage from "./LoginPage";
-import SignupPage from "./SignupPage";
-import MoviePage from "./moviePage";
-import GetStarted from "./get-started";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import MoviePage from "./pages/moviePage";
+import GetStarted from "./pages/get-started";
 import MovieDetails from "./components/movies/movieDetails";
 import MoviePlayer from "./components/movies/moviePlayer";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-/* gi try nakog hardcode ang movies, idk how to make it dynamic thats why naa ni
-import MovieNausica from "./components/movies/movieNausica";
-import MovieCastle from "./components/movies/movieCastle";
-import MovieGrave from "./components/movies/movieGrave";
-import MovieKiki from "./components/movies/movieKiki";
-import MovieTotoro from "./components/movies/movieTotoro";
-import MovieOnly from "./components/movies/movieOnly";
-import MoviePorco from "./components/movies/moviePorco";
-import MovieOcean from "./components/movies/movieOcean";
-import MoviePom from "./components/movies/moviePom";
-import MovieWhisper from "./components/movies/movieWhisper";
-import MoviePrincess from "./components/movies/moviePrincess";
-import MovieYamada from "./components/movies/movieYamada";
-import MovieSpirited from "./components/movies/moviesSpirited";
-import MovieTheCat from "./components/movies/movieTheCat";
-import MovieDetails from "./components/movies/movieDetails";
-import MovieTales from "./components/movies/movieTales";
-import MoviePonyo from "./components/movies/moviePonyo";
-import MovieArrietty from "./components/movies/movieArrietty";
-import MoviePoppy from "./components/movies/moviePoppy"; */
+
  
 const App: React.FC = () => {
   const [authUser, setAuthUser] = React.useState(null);

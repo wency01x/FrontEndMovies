@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css';
+import "@/App.css"
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const App: React.FC = () => {
 
   return (
     <div className={`relative h-screen w-full overflow-hidden ${isAnimating ? 'fade-out' : 'fade-in'}`}>
-      {/* Background image with movie posters */}
+
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{

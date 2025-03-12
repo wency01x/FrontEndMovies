@@ -1,60 +1,18 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './App.css';
-import axios from 'axios';
-
-interface LoginResponse {
-  success: boolean;
-  token?: string; // If the API returns a token on success
-  message?: string;
-  role?: string; // Optional message from API
-  user: AuthUser
-}
-
-export interface AuthUser {
-  id: number;
-  email: string;
-  username: string;
-  fullName: string;
-}
+import "@/App.css";
+import { useLogin} from '@/services/useQuery';
+import { AuthUser } from '@/interfaces/interfaces';
 
 const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: AuthUser) => void }) => {
-  const navigate = useNavigate();
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const {mutation, isAnimating} = useLogin(setAuthUser);
 
-  const handleLogin = async (event: React.FormEvent) => {
+  const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
-    setIsAnimating(true);
-  
-    try {
-      const response = await axios.post<LoginResponse>(
-        `${import.meta.env.VITE_API_URL}/api/login/`,
-        { email, password },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          }
-        }
-      );
-  
-      if (response.data.user) {
-        localStorage.setItem("accessToken", response.data.token);
-        localStorage.setItem("authUser", JSON.stringify(response.data.user));
-        setAuthUser(response.data.user);
-        navigate('/movies');
-      } else {
-        alert(response.data.message || "Invalid login credentials");
-        setIsAnimating(false);
-      }
-      
-    } catch (error) {
-      console.error('Login failed', error);
-      alert('An error occurred during login.');
-      setIsAnimating(false);
-    }
+    mutation.mutate({ email, password });
   };
   
 

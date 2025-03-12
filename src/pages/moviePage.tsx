@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, User, LogOut } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
-import axiosInstance from "./api/axiosInstance";
-import { AuthUser } from './LoginPage';
+import axiosInstance from "../api/axiosInstance";
+import { AuthUser } from '@/interfaces/interfaces';
 
 
 

@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthUser } from "./LoginPage";
+import { AuthUser } from "../interfaces/interfaces";
 
 const ProtectedRoute = ({ authUser }: { authUser: AuthUser }) => {
   if (!authUser) {
