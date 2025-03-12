@@ -150,7 +150,7 @@ const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: AuthUser) =>
             </Link>
           ))
         ) : (
-          <p className="text-center text-gray-500 col-span-6">No movies available.</p>
+          <p className="text-center text-gray-500 col-span-6">Loading..</p>
         )}
       </div>
     </div>
