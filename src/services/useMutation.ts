@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface SignupData {
   username: string;
@@ -10,6 +9,8 @@ interface SignupData {
   fullName: string;
   password: string;
 }
+
+
 
 
 export const useSignup = (initialData: SignupData) => {
@@ -31,6 +32,7 @@ export const useSignup = (initialData: SignupData) => {
     onSuccess: () => {
       alert("User registered successfully!");
       setFormData(initialData);
+      
       
     },
     onError: (error: any) => {

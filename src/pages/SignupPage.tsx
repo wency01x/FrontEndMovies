@@ -27,7 +27,7 @@ const SignupPage: React.FC = () => {
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
     mutation.mutate();
-    navigate("/login");
+    
   };
 
   return (
