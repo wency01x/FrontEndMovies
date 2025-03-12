@@ -9,9 +9,11 @@ import { AuthUser, LoginResponse } from "../interfaces/interfaces";
 export const useLogin = (setAuthUser: (auth: AuthUser) => void) => {
   const navigate = useNavigate();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const mutation = useMutation({
     mutationFn: async ({ email, password }: { email: string; password: string }) => {
         setIsAnimating(true);
+        setIsLoading(true);
       const response = await axios.post<LoginResponse>(
         `${import.meta.env.VITE_API_URL}/api/login/`,
         { email, password },
@@ -33,14 +35,16 @@ export const useLogin = (setAuthUser: (auth: AuthUser) => void) => {
       } else {
         alert(data.message || "Invalid login credentials");
         setIsAnimating(false);
+        setIsLoading(false);
       }
     },
     onError: (error: any) => {
       console.error("Login failed", error);
       alert("An error occurred during login.");
       setIsAnimating(false);
+      setIsLoading(false);
     },
   });
 
-  return {mutation, isAnimating};
+  return {mutation, isAnimating, isLoading};
 };

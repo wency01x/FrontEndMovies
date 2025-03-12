@@ -8,7 +8,7 @@ const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: AuthUser) => void }) =
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
-  const {mutation, isAnimating} = useLogin(setAuthUser);
+  const {mutation, isAnimating, isLoading} = useLogin(setAuthUser);
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
@@ -47,8 +47,9 @@ const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: AuthUser) => void }) =
               className="w-full p-3 bg-white text-gray-900 rounded-3xl font-medium hover:bg-opacity-90 transition-all duration-300" 
               type="submit" 
               id='login-button'
+              disabled = {isLoading}
             >
-              Log in
+              {isLoading ? 'Loading...' : 'Login'}
             </button>
             <div className="text-center text-white">
               Don't have an account? <Link className="text-blue-300 hover:text-blue-200 underline" to="/create-account">Sign up here</Link>
