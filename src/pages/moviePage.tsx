@@ -3,24 +3,13 @@ import { Search, User, LogOut } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from "../api/axiosInstance";
 import { IAuthUser } from '@/interfaces/interfaces';
+import { IMovie } from '@/interfaces/interfaces';
 
 
-
-
-interface Movie {
-  id: number;
-  title: string;
-  genre?: string;
-  year: string;
-  duration: string;
-  path?: string;
-  videoUrl?: string;
-  poster_image: string;
-}
 
 const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) => void, authUser: IAuthUser }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [movieCards, setMovieCards] = useState<Movie[]>([]);
+  const [movieCards, setMovieCards] = useState<IMovie[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -34,7 +23,7 @@ const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) =
     axiosInstance
       .get(endpoint)
       .then((response) => {
-        setMovieCards(response.data as Movie[]);
+        setMovieCards(response.data as IMovie[]);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);

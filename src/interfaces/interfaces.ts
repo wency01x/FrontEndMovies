@@ -29,3 +29,14 @@ export interface ISignupData {
   fullName: string;
   password: string;
 }
+
+export interface IMovie {
+  id: number;
+  title: string;
+  genre?: string;
+  year: string;
+  duration: string;
+  path?: string;
+  videoUrl?: string;
+  poster_image: string;
+}
