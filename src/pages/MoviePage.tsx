@@ -1,54 +1,31 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Search, User, LogOut } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom';
-import { axiosInstance } from '@/api/auth/AxiosInstance';
+import { Link } from 'react-router-dom';
 import { IAuthUser } from '@/interfaces/interfaces';
-import { IMovie } from '@/interfaces/interfaces';
+import { useMovies } from '@/hooks/FetchMovies/useMovies';
+import { useMovieHandlers } from '@/utils/movieHandler';
+import { useState} from 'react';
+
 
 const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) => void, authUser: IAuthUser }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [movieCards, setMovieCards] = useState<IMovie[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    fetchMovies();
-  }, []);
+  // Use the custom hook for fetching movies
+  const { movieCards, isLoading } = useMovies(searchQuery);
 
-  const fetchMovies = (query = "") => {
-    const endpoint = query ? `/movie/search/?q=${query}` : "/movies/";
-    axiosInstance
-      .get(endpoint)
-      .then((response) => {
-        setMovieCards(response.data as IMovie[]);
-      })
-      .catch((error) => {
-        console.error("Error fetching movies:", error);
-      });
-  };
+  // Use the utility for event handlers
+  const { isDropdownOpen, handleSearch, toggleDropdown, handleLogout } = useMovieHandlers(setAuthUser, setSearchQuery);
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    
+  // Debounce logic for search
+  const debouncedHandleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (debounceTimeout.current) {
       clearTimeout(debounceTimeout.current);
     }
 
     debounceTimeout.current = setTimeout(() => {
-      fetchMovies(query);
+      handleSearch(event);
     }, 500);
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleLogout = () => {
-    localStorage.clear(); // Remove the access token
-    setAuthUser(null);
-    navigate('/', {replace: true}); // Navigate to the login page
   };
 
   return (
@@ -74,7 +51,7 @@ const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) =
             placeholder="Search" 
             className="bg-black border border-gray-600 rounded-full py-1 px-4 pr-10 text-sm"
             value={searchQuery}
-            onChange={handleSearch}
+            onChange={debouncedHandleSearch}
           />
           <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
         </div>
@@ -120,7 +97,9 @@ const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) =
 
       {/* Movie Grid */}
       <div className="grid grid-cols-6 gap-4 p-4">
-        {movieCards.length > 0 ? (
+        {isLoading ? (
+          <p className="text-center text-gray-500 col-span-6">Loading...</p>
+        ) : movieCards.length > 0 ? (
           movieCards.map((movie, index) => (
             <Link to={`/movies/${movie.id}`} key={index} className="flex flex-col">
               <div className="bg-gray-300 aspect-[3/4] rounded-md mb-2">
@@ -137,12 +116,11 @@ const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) =
             </Link>
           ))
         ) : (
-          <p className="text-center text-gray-500 col-span-6">Loading..</p>
+          <p className="text-center text-gray-500 col-span-6">No movies found.</p>
         )}
       </div>
     </div>
   );
-}
-
+};
 
 export default MoviePage;

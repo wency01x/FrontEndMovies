@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App.tsx';
 import './index.css';
-import "@/api/auth/AuthInterceptor"; // Import for side effects only
+import "@/middleware/Axios-Interceptor.ts"; // Import for side effects only
 
 const queryClient = new QueryClient();
 

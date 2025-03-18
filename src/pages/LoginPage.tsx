@@ -1,32 +1,18 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useLoginHandler } from '@/utils/loginHandler';
 import { IAuthUser } from '@/interfaces/interfaces';
-import { toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
-import { useLogin } from '@/hooks/tanstack/api/useLogin';
 
 const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: IAuthUser) => void }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  // Use the useLogin hook
-  const { handleLogin, isAnimating, isLoading } = useLogin(setAuthUser);
-
-  // Check if the fields are empty
-  const isFormValid = email.trim() !== "" && password.trim() !== "";
-
-  const onSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    // Ensure the form is valid before submitting
-    if (!isFormValid) {
-      toast.error("Please fill in all fields.");
-      return;
-    }
-
-    // Call handleLogin with email and password
-    handleLogin({ email, password });
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    onSubmit,
+    isFormValid,
+    isAnimating,
+    isLoading,
+  } = useLoginHandler(setAuthUser);
 
   return (
     <div className={`h-screen bg-cover bg-center ${isAnimating ? 'fade-out' : 'fade-in'}`} style={{ backgroundImage: "url('/images/authentication-bg.png')" }}>
@@ -42,7 +28,7 @@ const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: IAuthUser) => void }) 
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={isLoading} // Disable input during loading
+                disabled={isLoading}
               />
             </div>
             <div>
@@ -54,14 +40,14 @@ const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: IAuthUser) => void }) 
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                disabled={isLoading} // Disable input during loading
+                disabled={isLoading}
               />
             </div>
             <button
               className="w-full p-3 bg-white text-gray-900 rounded-3xl font-medium hover:bg-opacity-90 transition-all duration-300"
               type="submit"
               id="login-button"
-              disabled={!isFormValid || isLoading} // Disable button if fields are empty or during loading
+              disabled={!isFormValid || isLoading}
             >
               {isLoading ? 'Loading...' : 'Login'}
             </button>

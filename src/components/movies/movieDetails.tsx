@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./movie.css"; // Keep your styling
-import { axiosInstance } from "@/api/auth/AxiosInstance";
+import axiosInstance from "@/middleware/Axios-Interceptor";
 
 const movies = {
   howl: {
