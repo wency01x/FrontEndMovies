@@ -2,18 +2,15 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import MoviePage from "./pages/MoviePage";
+import MoviePage from "@/pages/MoviePage";
 import GetStarted from "./pages/GetStartedPage";
 import MovieDetails from "./components/movies/movieDetails";
 import MoviePlayer from "./components/movies/moviePlayer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axiosInstance from "@/api/auth/AuthInterceptor"; // ✅ Ensure it loads at startup
 
 
-
- 
 const App: React.FC = () => {
   const [authUser, setAuthUser] = React.useState(null);
 
