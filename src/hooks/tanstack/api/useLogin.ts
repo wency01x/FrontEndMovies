@@ -10,9 +10,17 @@ export const useLogin = (setAuthUser: (auth: IAuthUser) => void) => {
   const mutation = useLoginMutation(setAuthUser, navigate);
 
   const handleLogin = async ({ email, password }: { email: string; password: string }) => {
-    setIsAnimating(true);
-    await mutation.mutateAsync({ email, password });
-    setIsAnimating(false);
+    try {
+      const result = await mutation.mutateAsync({ email, password });
+
+      // Only trigger the animation if login is successful
+      if (result?.user) {
+        setIsAnimating(true);
+      }
+    } catch (error: any) {
+      console.error("Login error:", error);
+      navigate("/login"); // Redirect to login on failure
+    }
   };
 
   return { handleLogin, isAnimating, isLoading: mutation.isPending };
