@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import MoviePage from "@/pages/MoviePage";
+import MoviePage from "./pages/MoviePage";
 import GetStarted from "./pages/GetStartedPage";
 import MovieDetails from "./components/movies/movieDetails";
 import MoviePlayer from "./components/movies/moviePlayer";
