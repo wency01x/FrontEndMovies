@@ -8,7 +8,8 @@ import { loginUser } from "@/services/authService"; // ✅ Import service functi
 
 export const useLogin = (setAuthUser: (auth: IAuthUser) => void) => {
   const navigate = useNavigate();
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isAnimating, setIsAnimating,] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const mutation = useMutation({
     mutationFn: async ({ email, password }: { email: string; password: string }) => {
@@ -32,6 +33,7 @@ export const useLogin = (setAuthUser: (auth: IAuthUser) => void) => {
     },
     onSettled: () => {
       setIsAnimating(false);
+      setIsLoading(false);
     },
   });
 
