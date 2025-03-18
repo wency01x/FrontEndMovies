@@ -10,12 +10,12 @@ const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: IAuthUser) => void }) 
   const [password, setPassword] = useState("");
 
   // Use the useLogin hook
-  const { mutation, isAnimating, isLoading } = useLogin(setAuthUser);
+  const { handleLogin, isAnimating, isLoading } = useLogin(setAuthUser);
 
   // Check if the fields are empty
   const isFormValid = email.trim() !== "" && password.trim() !== "";
 
-  const handleLogin = (event: React.FormEvent) => {
+  const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     // Ensure the form is valid before submitting
@@ -24,14 +24,15 @@ const LoginPage = ({ setAuthUser }: { setAuthUser: (auth: IAuthUser) => void }) 
       return;
     }
 
-    mutation.mutate({ email, password }); // Trigger the login mutation
+    // Call handleLogin with email and password
+    handleLogin({ email, password });
   };
 
   return (
     <div className={`h-screen bg-cover bg-center ${isAnimating ? 'fade-out' : 'fade-in'}`} style={{ backgroundImage: "url('/images/authentication-bg.png')" }}>
       <div className="absolute inset-0 flex items-center justify-end pr-60 -mt-12 slide-in-right">
         <div className="glass p-8 rounded-3xl w-full max-w-md mx-4">
-          <form className="space-y-4" onSubmit={handleLogin}>
+          <form className="space-y-4" onSubmit={onSubmit}>
             <div>
               <input
                 className="w-full p-3 rounded-3xl border border-white/50 bg-white/10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white/50"
