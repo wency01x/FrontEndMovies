@@ -5,8 +5,6 @@ import axiosInstance from "../api/axiosInstance";
 import { IAuthUser } from '@/interfaces/interfaces';
 import { IMovie } from '@/interfaces/interfaces';
 
-
-
 const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) => void, authUser: IAuthUser }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [movieCards, setMovieCards] = useState<IMovie[]>([]);
