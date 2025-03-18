@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ISignupData } from "@/interfaces/interfaces";
-import { signupUser } from "@/services/authService"; // ✅ Import API function
+import { signupUser } from "@/services//authServices/authSignup"; // ✅ Import API function
 
 export const useSignup = (initialData: ISignupData) => {
   const [formData, setFormData] = useState<ISignupData>(initialData);

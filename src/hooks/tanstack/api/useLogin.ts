@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IAuthUser } from "@/interfaces/interfaces";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginUser } from "@/services/authService"; // ✅ Import service function
+import { loginUser } from "@/services/authServices/authLogin"; // ✅ Import service function
 
 export const useLogin = (setAuthUser: (auth: IAuthUser) => void) => {
   const navigate = useNavigate();
