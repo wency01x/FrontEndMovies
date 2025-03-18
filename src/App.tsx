@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-        <ToastContainer position="top-center" autoClose={3000} />
+        <ToastContainer position="top-center" autoClose={750} />
       <Routes>
       {/* Public Routes (redirect if logged in) */}
       <Route
