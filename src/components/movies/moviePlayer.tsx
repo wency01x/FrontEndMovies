@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/auth/AxiosInstance";
+import { axiosInstance } from "@/api/auth/AxiosInstance";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReactPlayer from 'react-player';

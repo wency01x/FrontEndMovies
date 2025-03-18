@@ -9,6 +9,8 @@ import MoviePlayer from "./components/movies/moviePlayer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "@/api/auth/AuthInterceptor"; // ✅ Ensure it loads at startup
+
 
 
  

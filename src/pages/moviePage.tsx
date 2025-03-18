@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, User, LogOut } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
-import axiosInstance from '@/api/auth/AxiosInstance';
+import { axiosInstance } from '@/api/auth/AxiosInstance';
 import { IAuthUser } from '@/interfaces/interfaces';
 import { IMovie } from '@/interfaces/interfaces';
 
