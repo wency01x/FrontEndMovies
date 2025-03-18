@@ -7,6 +7,8 @@ import GetStarted from "./pages/get-started";
 import MovieDetails from "./components/movies/movieDetails";
 import MoviePlayer from "./components/movies/moviePlayer";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
  
@@ -23,6 +25,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
+        <ToastContainer position="top-center" autoClose={3000} />
       <Routes>
       {/* Public Routes (redirect if logged in) */}
       <Route

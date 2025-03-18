@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Search, User, LogOut } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from "../api/axiosInstance";
-import { AuthUser } from '@/interfaces/interfaces';
+import { IAuthUser } from '@/interfaces/interfaces';
 
 
 
@@ -18,7 +18,7 @@ interface Movie {
   poster_image: string;
 }
 
-const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: AuthUser) => void, authUser: AuthUser }) => {
+const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) => void, authUser: IAuthUser }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [movieCards, setMovieCards] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState("");

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'tailwindcss/tailwind.css';
 import "@/App.css"
-import { useSignup } from '../services/useMutation';
 import { useNavigate } from 'react-router-dom';
+import { useSignup } from '@/hooks/tanstack/api/useSignup';
 
 const SignupPage: React.FC = () => {
   const { formData, setFormData, mutation, isLoading } = useSignup({

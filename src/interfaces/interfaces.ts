@@ -7,17 +7,25 @@ export interface IUserSignup {
 }
 
 
-export interface LoginResponse {
+export interface ILoginResponse {
   success: boolean;
   token?: string;
   message?: string;
   role?: string;
-  user: AuthUser;
+  user: IAuthUser;
 }
 
-export interface AuthUser {
+export interface IAuthUser {
   id: number;
   email: string;
   username: string;
   fullName: string;
+}
+
+export interface ISignupData {
+  username: string;
+  email: string;
+  phoneNumber: string;
+  fullName: string;
+  password: string;
 }

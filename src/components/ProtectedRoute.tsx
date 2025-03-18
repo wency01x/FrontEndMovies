@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthUser } from "../interfaces/interfaces";
+import { IAuthUser } from "../interfaces/interfaces";
 
-const ProtectedRoute = ({ authUser }: { authUser: AuthUser }) => {
+const ProtectedRoute = ({ authUser }: { authUser: IAuthUser }) => {
   if (!authUser) {
     return <Navigate to="/login" replace />;
   }
