@@ -14,10 +14,6 @@ const SignupPage: React.FC = () => {
     password: "",
   });
 
-  const navigate = useNavigate()
-
-  
- 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
