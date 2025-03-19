@@ -27,7 +27,7 @@ export const useAuthSignupMutation = (
 
       // Check if the error is due to an existing email
       if (errorData.email && errorData.email.includes("user with this email already exists.")) {
-        toast.error("A user with this email already exists. Please use a different email.");
+        toast.error("A user with this information already exists. Please try a different one.");
       } else {
         toast.error(errorData?.error || "Signup failed. Please try again.");
       }
