@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useLogin } from '@/hooks/tanstack/api/useLogin';
+import { useLogin } from '@/hooks/tanstack/api/useAuth/useLogin';
 import { IAuthUser } from '@/interfaces/interfaces';
 import { useState } from 'react';
 
