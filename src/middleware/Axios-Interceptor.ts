@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IRefreshTokenResponse } from "@/interfaces/interfaces";
 
-const API_BASE_URL = `${import.meta.env.VITE_API_URL}/api`;
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
 // Create Axios instance
 const axiosInstance = axios.create({

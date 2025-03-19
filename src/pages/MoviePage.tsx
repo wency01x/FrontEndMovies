@@ -22,10 +22,12 @@ const MoviePage = ({ setAuthUser, authUser }: { setAuthUser: (auth: IAuthUser) =
     if (debounceTimeout.current) {
       clearTimeout(debounceTimeout.current);
     }
-
+  
+    const newQuery = event.target.value;
+  
     debounceTimeout.current = setTimeout(() => {
-      handleSearch(event);
-    }, 500);
+      setSearchQuery(newQuery); // If empty, useMovies will fetch all movies
+    }, 10);
   };
 
   return (
