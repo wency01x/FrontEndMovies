@@ -6,7 +6,6 @@ export interface IUserSignup {
   password: string;
 }
 
-
 export interface ILoginResponse {
   success: boolean;
   token?: string;
@@ -39,4 +38,9 @@ export interface IMovie {
   path?: string;
   videoUrl?: string;
   poster_image: string;
+}
+
+export interface IRefreshTokenResponse {
+  access: string;
+  refresh: string;
 }

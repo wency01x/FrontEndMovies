@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { IAuthUser } from "@/interfaces/interfaces";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginUser } from "@/services/authServices/authLogin"; // Import the service function
+import { loginUser } from "@/services/LoginServices"; // Import the service function
 
 export const useLoginMutation = (setAuthUser: (auth: IAuthUser) => void, navigate: any) => {
   return useMutation({

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ISignupData } from "@/interfaces/interfaces";
-import { signupUser } from "@/services/authServices/authSignup"; // ✅ Import API function
+import { signupUser } from "@/services/SignupServices"; // ✅ Import API function
 import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 
 export const useAuthSignupMutation = (

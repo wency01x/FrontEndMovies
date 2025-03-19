@@ -1,11 +1,7 @@
 import axios from "axios";
+import { IRefreshTokenResponse } from "@/interfaces/interfaces";
 
 const API_BASE_URL = `${import.meta.env.VITE_API_URL}/api`;
-
-interface RefreshTokenResponse {
-  access: string;
-  refresh: string;
-}
 
 // Create Axios instance
 const axiosInstance = axios.create({
@@ -46,7 +42,7 @@ axiosInstance.interceptors.response.use(
         if (!refreshToken) throw new Error("No refresh token available");
 
         // Explicitly define response type
-        const { data } = await axios.post<RefreshTokenResponse>(`${API_BASE_URL}/auth/refresh/`, {
+        const { data } = await axios.post<IRefreshTokenResponse>(`${API_BASE_URL}/auth/refresh/`, {
           refresh: refreshToken,
         });
 
